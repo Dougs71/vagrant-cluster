@@ -5,7 +5,7 @@ servers=[
       {
         :hostname => "app1",
         :ip => "10.69.1.2",
-        :box => "CentOS-7.6.1810",
+        :box => "geerlingguy/centos7",
         :memory => 512,
         :cpus => 1,
         :role => "app",
@@ -14,7 +14,7 @@ servers=[
       {
         :hostname => "db1",
         :ip => "10.69.1.3",
-        :box => "CentOS-7.6.1810",
+        :box => "geerlingguy/centos7",
         :memory => 512,
         :cpus => 1,
         :role => "db",
@@ -23,7 +23,7 @@ servers=[
       {
         :hostname => "mon1",
         :ip => "10.69.1.4",
-        :box => "CentOS-7.6.1810",
+        :box => "geerlingguy/centos7",
         :memory => 512,
         :cpus => 1,
         :role => "mon",
@@ -32,7 +32,7 @@ servers=[
       {
         :hostname => "app2",
         :ip => "10.69.2.2",
-        :box => "CentOS-7.6.1810",
+        :box => "geerlingguy/centos7",
         :memory => 512,
         :cpus => 1,
         :role => "app",
@@ -41,7 +41,7 @@ servers=[
       {
         :hostname => "db2",
         :ip => "10.69.2.3",
-        :box => "CentOS-7.6.1810",
+        :box => "geerlingguy/centos7",
         :memory => 512,
         :cpus => 1,
         :role => "db",
@@ -50,7 +50,7 @@ servers=[
       {
         :hostname => "mon2",
         :ip => "10.69.2.4",
-        :box => "CentOS-7.6.1810",
+        :box => "geerlingguy/centos7",
         :memory => 512,
         :cpus => 1,
         :role => "mon",
@@ -61,7 +61,8 @@ servers=[
 Vagrant.configure("2") do |config|
   config.vbguest.auto_update = false
   config.vm.box_check_update = false
-  config.vm.box = "CentOS-7.6.1810"
+  config.vm.box = "geerlingguy/centos7"
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
   config.ssh.insert_key = false
     
   config.vm.define "control" do |control|
