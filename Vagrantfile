@@ -5,7 +5,7 @@ servers=[
       {
         :hostname => "app1",
         :ip => "10.69.1.2",
-        :box => "geerlingguy/centos7",
+        :box => "bento/centos-7.5",
         :memory => 512,
         :cpus => 1,
         :role => "app",
@@ -14,7 +14,7 @@ servers=[
       {
         :hostname => "db1",
         :ip => "10.69.1.3",
-        :box => "geerlingguy/centos7",
+        :box => "bento/centos-7.5",
         :memory => 512,
         :cpus => 1,
         :role => "db",
@@ -23,7 +23,7 @@ servers=[
       {
         :hostname => "mon1",
         :ip => "10.69.1.4",
-        :box => "geerlingguy/centos7",
+        :box => "bento/centos-7.5",
         :memory => 512,
         :cpus => 1,
         :role => "mon",
@@ -32,7 +32,7 @@ servers=[
       {
         :hostname => "app2",
         :ip => "10.69.2.2",
-        :box => "geerlingguy/centos7",
+        :box => "bento/centos-7.5",
         :memory => 512,
         :cpus => 1,
         :role => "app",
@@ -41,7 +41,7 @@ servers=[
       {
         :hostname => "db2",
         :ip => "10.69.2.3",
-        :box => "geerlingguy/centos7",
+        :box => "bento/centos-7.5",
         :memory => 512,
         :cpus => 1,
         :role => "db",
@@ -50,7 +50,7 @@ servers=[
       {
         :hostname => "mon2",
         :ip => "10.69.2.4",
-        :box => "geerlingguy/centos7",
+        :box => "bento/centos-7.5",
         :memory => 512,
         :cpus => 1,
         :role => "mon",
@@ -61,10 +61,11 @@ servers=[
 Vagrant.configure("2") do |config|
   config.vbguest.auto_update = false
   config.vm.box_check_update = false
-  config.vm.box = "geerlingguy/centos7"
+  config.vm.box = "bento/centos-7.5"
   config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
   config.ssh.insert_key = false
-    
+  config.ssh.private_key_path = ['provision/vagrant']
+
   config.vm.define "control" do |control|
     control.vm.hostname = "control"
 
@@ -77,7 +78,7 @@ Vagrant.configure("2") do |config|
     control.vm.network "public_network", ip: "192.168.69.3", bridge: "em1"
     control.vm.network "private_network", ip: "10.69.1.1"
     control.vm.network "private_network", ip: "10.69.2.1"
-    control.vm.provision "shell", path: "provision/control.sh"
+    control.vm.provision "shell", path: "provision/control.sh", privileged: false
   end
 
   servers.each do |machine|
@@ -94,14 +95,14 @@ Vagrant.configure("2") do |config|
 
       case machine[:role]
       when "app"
-        node.vm.provision "shell", path: "provision/app.sh"
+        node.vm.provision "shell", path: "provision/app.sh", privileged: false
       when "db"
-        node.vm.provision "shell", path: "provision/db.sh"
+        node.vm.provision "shell", path: "provision/db.sh", privileged: false
       when "mon"
-        node.vm.provision "shell", path: "provision/mon.sh"
+        node.vm.provision "shell", path: "provision/mon.sh", privileged: false
       end
     end
   end
 
-  config.vm.provision "shell", path: "provision/common.sh"
+  config.vm.provision "shell", path: "provision/common.sh", privileged: false
 end
