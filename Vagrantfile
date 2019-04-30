@@ -4,7 +4,7 @@
 servers=[
       {
         :hostname => "app1",
-        :ip => "10.69.1.2",
+        :ip => "10.129.208.5",
         :box => "Dougs71/CentOS-7.6.1810-Minimal",
         :memory => 512,
         :cpus => 1,
@@ -13,7 +13,7 @@ servers=[
       },
       {
         :hostname => "db1",
-        :ip => "10.69.1.3",
+        :ip => "10.129.208.4",
         :box => "Dougs71/CentOS-7.6.1810-Minimal",
         :memory => 512,
         :cpus => 1,
@@ -22,7 +22,7 @@ servers=[
       },
       {
         :hostname => "mon1",
-        :ip => "10.69.1.4",
+        :ip => "10.129.208.6",
         :box => "Dougs71/CentOS-7.6.1810-Minimal",
         :memory => 512,
         :cpus => 1,
@@ -31,7 +31,7 @@ servers=[
       },
       {
         :hostname => "app2",
-        :ip => "10.69.2.2",
+        :ip => "10.129.228.67",
         :box => "Dougs71/CentOS-7.6.1810-Minimal",
         :memory => 512,
         :cpus => 1,
@@ -40,7 +40,7 @@ servers=[
       },
       {
         :hostname => "db2",
-        :ip => "10.69.2.3",
+        :ip => "10.129.228.66",
         :box => "Dougs71/CentOS-7.6.1810-Minimal",
         :memory => 512,
         :cpus => 1,
@@ -49,7 +49,7 @@ servers=[
       },
       {
         :hostname => "mon2",
-        :ip => "10.69.2.4",
+        :ip => "10.129.228.68",
         :box => "Dougs71/CentOS-7.6.1810-Minimal",
         :memory => 512,
         :cpus => 1,
@@ -76,8 +76,8 @@ Vagrant.configure("2") do |config|
     end
 
     control.vm.network "public_network", ip: "192.168.69.3", bridge: "em1"
-    control.vm.network "private_network", ip: "10.69.1.1"
-    control.vm.network "private_network", ip: "10.69.2.1"
+    control.vm.network "private_network", ip: "10.129.208.1"
+    control.vm.network "private_network", ip: "10.129.228.1"
     control.vm.provision "shell", path: "provision/control.sh", privileged: false
   end
 
