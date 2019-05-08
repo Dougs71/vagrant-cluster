@@ -1,28 +1,42 @@
-app1
-db1
-mon1
-app2
-db2
-mon2
+qa-prod-app
+qa-prod-db
+qa-fail-app
+qa-fail-db
+prod-app
+prod-db
+prod-mon
+fail-app
+fail-db
+fail-mon
 
 [app]
-app1
-app2
+qa-prod-app
+qa-fail-app
+prod-app
+fail-app
 
 [db]
-db1
-db2
+qa-prod-db
+qa-fail-db
+prod-db
+fail-db
 
 [mon]
-mon1
-mon2
+prod-mon
+fail-mon
 
-[dc1]
-app1
-db1
-mon1
+[qa]
+qa-prod-app
+qa-prod-db
+qa-fail-app
+qa-fail-db
 
-[dc2]
-app2
-db2
-mon2
+[prod]
+prod-app
+prod-db
+prod-mon
+
+[fail]
+fail-app
+fail-db
+fail-mon

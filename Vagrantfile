@@ -2,60 +2,96 @@
 # vi: set ft=ruby :
 
 servers=[
-      {
-        :hostname => "app1",
-        :ip => "10.129.208.5",
-        :box => "Dougs71/CentOS-7.6.1810-Minimal",
-        :memory => 512,
-        :cpus => 1,
-        :role => "app",
-        :group => "dc1"
-      },
-      {
-        :hostname => "db1",
-        :ip => "10.129.208.4",
-        :box => "Dougs71/CentOS-7.6.1810-Minimal",
-        :memory => 512,
-        :cpus => 1,
-        :role => "db",
-        :group => "dc1"
-      },
-      {
-        :hostname => "mon1",
-        :ip => "10.129.208.6",
-        :box => "Dougs71/CentOS-7.6.1810-Minimal",
-        :memory => 512,
-        :cpus => 1,
-        :role => "mon",
-        :group => "dc1"
-      },
-      {
-        :hostname => "app2",
-        :ip => "10.129.228.67",
-        :box => "Dougs71/CentOS-7.6.1810-Minimal",
-        :memory => 512,
-        :cpus => 1,
-        :role => "app",
-        :group => "dc2"
-      },
-      {
-        :hostname => "db2",
-        :ip => "10.129.228.66",
-        :box => "Dougs71/CentOS-7.6.1810-Minimal",
-        :memory => 512,
-        :cpus => 1,
-        :role => "db",
-        :group => "dc2"
-      },
-      {
-        :hostname => "mon2",
-        :ip => "10.129.228.68",
-        :box => "Dougs71/CentOS-7.6.1810-Minimal",
-        :memory => 512,
-        :cpus => 1,
-        :role => "mon",
-        :group => "dc2"
-      }
+  {
+    :hostname => "qa-prod-app",
+    :ip => "10.129.242.5",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "app",
+    :group => "qa"
+  },
+  {
+    :hostname => "qa-prod-db",
+    :ip => "10.129.242.4",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "db",
+    :group => "qa"
+  },
+  {
+    :hostname => "qa-fail-app",
+    :ip => "10.129.242.7",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "app",
+    :group => "qa"
+  },
+  {
+    :hostname => "qa-fail-db",
+    :ip => "10.129.242.6",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "db",
+    :group => "qa"
+  },
+  {
+    :hostname => "prod-app",
+    :ip => "10.129.208.5",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "app",
+    :group => "prod"
+  },
+  {
+    :hostname => "prod-db",
+    :ip => "10.129.208.4",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "db",
+    :group => "prod"
+  },
+  {
+    :hostname => "prod-mon",
+    :ip => "10.129.208.6",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "mon",
+    :group => "prod"
+  },
+  {
+    :hostname => "fail-app",
+    :ip => "10.129.228.67",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "app",
+    :group => "fail"
+  },
+  {
+    :hostname => "fail-db",
+    :ip => "10.129.228.66",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "db",
+    :group => "fail"
+  },
+  {
+    :hostname => "fail-mon",
+    :ip => "10.129.228.68",
+    :box => "Dougs71/CentOS-7.6.1810-Minimal",
+    :memory => 512,
+    :cpus => 1,
+    :role => "mon",
+    :group => "fail"
+  }
 ]
 
 Vagrant.configure("2") do |config|
@@ -76,6 +112,7 @@ Vagrant.configure("2") do |config|
     end
 
     control.vm.network "public_network", ip: "192.168.69.3", bridge: "em1"
+    control.vm.network "private_network", ip: "10.129.242.1"
     control.vm.network "private_network", ip: "10.129.208.1"
     control.vm.network "private_network", ip: "10.129.228.1"
     control.vm.provision "shell", path: "provision/control.sh", privileged: false
